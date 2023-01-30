@@ -11,7 +11,6 @@ import java.io.IOException;
 public class Program {
     public static void main(String[] args) {
         ReadReturnString();
-        Multi(ReadReturnString());
         String a = Multi(ReadReturnString());
         WriteResult(a);
     }   
