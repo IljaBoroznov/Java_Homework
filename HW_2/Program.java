@@ -34,9 +34,13 @@ public class Program {
             content.substring(content.lastIndexOf("a " ) + 1,
             content.lastIndexOf("b") )));
         double b = Double.valueOf(String.valueOf(content.substring(content.lastIndexOf("b ") + 1)));
+        if (a == 0 && b == 0)
+        return "Не определено";
+        else{
         double result = Math.pow(a, b);
         String value = String.valueOf(result);
         return value;
+        }
     }
 
     public static void WriteResult(String result) {
