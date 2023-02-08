@@ -23,20 +23,43 @@ public class Program {
             i++;
         }
         
-        System.out.printf("Ведите координату Х выхода ");
-        int x = iScanner.nextInt();
-        System.out.printf("Ведите координату Y выхода ");
-        int y = iScanner.nextInt();
-        int [] outs = {x, y};    
+        System.out.printf("Ведите координату Х выхода 1 ");
+        int x1 = iScanner.nextInt();
+        System.out.printf("Ведите координату Y выхода 1 ");
+        int y1 = iScanner.nextInt();
+        int [] outs1 = {x1, y1};
+        System.out.printf("Ведите координату Х выхода 2 ");
+        int x2 = iScanner.nextInt();
+        System.out.printf("Ведите координату Y выхода 2 ");
+        int y2 = iScanner.nextInt();
+        int [] outs2 = {x2, y2};        
         iScanner.close();
         
         printMatrix(matr);
         int [][] newMatr = Li(matr, a, b);
         printMatrix(newMatr);
-        System.out.printf("Кратчайший путь до выхода = ");
-        System.out.println(newMatr[outs[0]][outs[1]] - 1);
+        
+        int select = outputSelection(newMatr[outs1[0]][outs1[1]], newMatr[outs2[0]][outs2[1]]);
+        if (select == 1){
+            System.out.printf("Кратчайший путь до выхода № 1 = ");
+            System.out.println(newMatr[outs1[0]][outs1[1]] - 1);
+        }
+        else{
+            System.out.printf("Кратчайший путь до выхода № 2 = ");
+            System.out.println(newMatr[outs2[0]][outs2[1]] - 1);
+        }
+        
 
     }
+
+    public static int outputSelection(int a, int b){
+        if (a < b){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    } 
 
     public static int[][] fillMatrix(){
         int[][] a = new int [8][8];
