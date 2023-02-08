@@ -41,17 +41,9 @@ public class Program {
         
         int select = outputSelection(newMatr[outs1[0]][outs1[1]], newMatr[outs2[0]][outs2[1]]);
         printOutput(select, newMatr[outs1[0]][outs1[1]], newMatr[outs2[0]][outs2[1]]);
-        /*
-        if (select == 1){
-            System.out.printf("Кратчайший путь до выхода № 1 = ");
-            System.out.println(newMatr[outs1[0]][outs1[1]] - 1);
-        }
-        else{
-            System.out.printf("Кратчайший путь до выхода № 2 = ");
-            System.out.println(newMatr[outs2[0]][outs2[1]] - 1);
-        }
-        */
+        
 
+        
     }
     public static void printOutput(int select, int a, int b){
         if (select == 1){
