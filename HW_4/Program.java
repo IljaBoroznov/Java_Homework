@@ -2,6 +2,9 @@ package Homework.HW_4;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Program {
     public static void main(String[] args) { 
@@ -28,11 +31,13 @@ public class Program {
         System.out.printf("Ведите координату Y выхода 1 ");
         int y1 = iScanner.nextInt();
         int [] outs1 = {x1, y1};
+
         System.out.printf("Ведите координату Х выхода 2 ");
         int x2 = iScanner.nextInt();
         System.out.printf("Ведите координату Y выхода 2 ");
         int y2 = iScanner.nextInt();
-        int [] outs2 = {x2, y2};        
+        int [] outs2 = {x2, y2}; 
+
         iScanner.close();
         
         printMatrix(matr);
@@ -41,9 +46,20 @@ public class Program {
         
         int select = outputSelection(newMatr[outs1[0]][outs1[1]], newMatr[outs2[0]][outs2[1]]);
         printOutput(select, newMatr[outs1[0]][outs1[1]], newMatr[outs2[0]][outs2[1]]);
+        int [] exitCoord = exitCoordinat(select, outs1, outs2);
+        int [][] result = getRoute(newMatr, exitCoord[0], exitCoord[1], newMatr[exitCoord[0]][exitCoord[1]]);
+        System.out.printf("Координаты маршрута выведены в формате [X, Y] ");
+        System.out.println(Arrays.deepToString(result));
         
+    }
 
-        
+    public static int[] exitCoordinat(int select, int[] a, int[] b){
+        if (select == 1){
+            return a;
+        }
+        else{ 
+            return b;   
+        }
     }
     public static void printOutput(int select, int a, int b){
         if (select == 1){
@@ -67,7 +83,6 @@ public class Program {
             return 2;
         }
     } 
-
     public static int[][] fillMatrix(){
         int[][] a = new int [8][8];
         for (int i = 0; i < 8; i++) {
@@ -76,8 +91,7 @@ public class Program {
             }  
         }
         return a;
-    }
-    
+    } 
     public static void printMatrix(int matr[][]){
         for (int i = 0; i < 8; i++){
             System.out.print("[");
@@ -89,11 +103,9 @@ public class Program {
             System.out.print("]\n");
         }
         System.out.println();
-    }
-    
+    }   
     public static int [][] Li(int matr[][], int a, int b){
-        int i = a;
-        int j = b;
+        int i = a;  int j = b;
         Queue<Integer> q = new LinkedList<Integer>();
         matr[i][j] = 1;
         while (true){
@@ -119,14 +131,65 @@ public class Program {
                 q.add(k);
                 }
             int n = q.element();
-            i = n / 10;
-            j = n % 10;       
+            i = n / 10; j = n % 10;        
             q.remove();
             if (q.size() == 0){
                 break;
             }
-        }
-                
+        }            
     return matr;
+    }
+    public static int [][] getRoute(int matr[][], int a, int b, int c){
+        int i = a; int j = b;
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for(int count = 1; count < c - 1; count++){
+            int k;
+            switch(count){
+                case(1):
+                if ((i - 1)  >= 0 && matr[i - 1][j] == matr[i][j] - 1 &&  j >= 0){
+                    k = (i - 1) * 10 + j;
+                    deque.add(k);
+                    i = i-1;
+                    count = 0;
+                    }
+                    break;
+                case(2):
+                if (j + 1 < 8 && matr[i][j + 1] == matr[i][j] - 1 && i >= 0 && j >= 0 ){
+                    k =  i * 10 + j + 1;
+                    deque.add(k);
+                    j=j+1;
+                    count = 0;
+                    }
+                    break;
+                case(3):
+                if (i + 1 < 8 && matr[i + 1][j] == matr[i][j] - 1 && i >= 0 && j >= 0 ){
+                    k = (i + 1) * 10 + j;
+                    deque.add(k);
+                    i=i+1;
+                    count = 0;
+                    }
+                    break;
+                case(4):
+                if (j - 1 >= 0 && matr[i][j - 1] == matr[i][j] - 1 && i >= 0){
+                    k =  i * 10 + (j - 1);
+                    deque.add(k);
+                    j=j-1;
+                    count = 0;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        int[][] coor = new int[deque.size()][2];
+        int size = deque.size();
+        for(int z = 0; z < size; z++){
+            int n = deque.getLast();
+            coor[z][0] = n / 10;
+            coor[z][1] = n % 10;
+            deque.removeLast();
+        }            
+    return coor;
     }
 }
